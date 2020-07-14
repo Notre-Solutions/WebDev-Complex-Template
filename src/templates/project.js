@@ -1,18 +1,31 @@
 import React from "react";
 import Layout from "../components/layout";
 import Img from "gatsby-image";
+import { Link } from "gatsby";
 
 const project = ({ data }) => {
   const {
+    bgimg,
+    title,
     img04,
     img01,
     img02,
     img03,
+    prevPage,
+    nextPage,
+    pageNumber,
   } = data.markdownRemark.frontmatter.projectPage;
+  const nextPageNumber = pageNumber === 3 ? null : pageNumber + 1;
+  const prevPageNumber = pageNumber === 1 ? null : pageNumber - 1;
 
   return (
     <Layout>
-      <div class="hero-full-container background-image-container white-text-container project-bg">
+      <div
+        className={
+          "hero-full-container background-image-container white-text-container " +
+          bgimg
+        }
+      >
         <div class="container">
           <div class="row">
             <div class="col-xs-12">
@@ -30,7 +43,8 @@ const project = ({ data }) => {
             <div class="col-xs-12">
               <div class="text-center section-container-spacer">
                 <h2 class="with-project-number">
-                  <span class="project-number">01</span>Night Photography
+                  <span class="project-number">{"0" + pageNumber}</span>
+                  {title}
                 </h2>
               </div>
               <div class="row section-container-spacer">
@@ -128,24 +142,42 @@ const project = ({ data }) => {
         <div class="container">
           <div class="row">
             <div class="col-xs-12 text-center">
-              <ul class="navbar-nav nav">
-                <li>
-                  <a href="" title="" class="project-nav left">
-                    <span class="project-number">01</span>Previous
-                  </a>
-                </li>
+              <ul class="navbar-nav nav navbar-left">
+                {prevPageNumber ? (
+                  <li>
+                    <Link to={prevPage} title="" class="project-nav right">
+                      <span class="project-number">{"0" + prevPageNumber}</span>
+                      Previous
+                    </Link>
+                  </li>
+                ) : (
+                  <li>
+                    <Link to="/" title="" class="project-nav right">
+                      <span class="project-number">{"00"}</span>
+                      Home
+                    </Link>
+                  </li>
+                )}
               </ul>
               <p class="h5 navbar-text">
-                Night Photography{" "}
-                <i class="fa fa-chevron-down arrow-down" aria-hidden="true"></i>
+                {title} <i class="fa fa-chevron-down arrow-down"></i>
               </p>
-
               <ul class="navbar-nav nav navbar-right">
-                <li>
-                  <a href="" title="" class="project-nav right">
-                    <span class="project-number">03</span>Next{" "}
-                  </a>
-                </li>
+                {nextPageNumber ? (
+                  <li>
+                    <Link to={nextPage} title="" class="project-nav right">
+                      <span class="project-number">{"0" + nextPageNumber}</span>
+                      Next
+                    </Link>
+                  </li>
+                ) : (
+                  <li>
+                    <Link to="/" title="" class="project-nav right">
+                      <span class="project-number">{"00"}</span>
+                      Home
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
@@ -160,8 +192,16 @@ export default project;
 export const pageQuery = graphql`
   query projectQuery($id: String!) {
     markdownRemark(id: { eq: $id }) {
+      fields {
+        slug
+      }
       frontmatter {
         projectPage {
+          bgimg
+          pageNumber
+          nextPage
+          prevPage
+          title
           img03 {
             childImageSharp {
               fluid(maxWidth: 10000, quality: 100) {

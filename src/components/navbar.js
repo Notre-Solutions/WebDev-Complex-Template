@@ -52,7 +52,7 @@ class navbar extends React.Component {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/project" title="">
+                    <Link to="/projects/portrait-photography/" title="">
                       Project
                     </Link>
                   </li>
@@ -71,19 +71,11 @@ class navbar extends React.Component {
                 <div className="footer-container">
                   <p>
                     <small>
-                      © Untitled | Website created with{" "}
-                      <a
-                        href="http://www.mashup-template.com/"
-                        title="Create website with free html template"
-                      >
-                        Mashup Template
-                      </a>
-                      /
                       <a
                         href="https://www.unsplash.com/"
                         title="Beautiful Free Images"
                       >
-                        Unsplash
+                        Thanks Unsplash for the photos
                       </a>
                     </small>
                   </p>

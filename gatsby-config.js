@@ -31,6 +31,13 @@ module.exports = {
       },
     },
     {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        path: `${__dirname}/src/content`,
+        name: "content",
+      },
+    },
+    {
       resolve: "gatsby-background-image",
       options: {
         // add your own characters to escape, replacing the default ':/'

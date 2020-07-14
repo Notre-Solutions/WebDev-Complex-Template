@@ -5093,11 +5093,18 @@ h2.with-project-number .project-number {
   float: left;
   margin-right: 5px;
 }
-.hero-bg{
-    background-image:url('../img/img-home.jpg')
+.hero-bg {
+  background-image: url("../img/img-home.jpg");
 }
-.project-bg{
-    background-image:url('../img/img-08.jpg')
+.project-bg-1 {
+  background-position: 50% 30%;
+  background-image: url("../img/img-13.jpg");
+}
+.project-bg-2 {
+  background-image: url("../img/img-08.jpg");
+}
+.project-bg-3 {
+  background-image: url("../img/img-18.jpg");
 }
 
 /*# sourceMappingURL=main.4c6e144e.map*/
