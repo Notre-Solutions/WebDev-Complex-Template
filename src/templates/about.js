@@ -4,7 +4,17 @@ import { graphql, Link } from "gatsby";
 import Img from "gatsby-image";
 
 const about = ({ data }) => {
-  const { imgProfil } = data.markdownRemark.frontmatter.aboutPage;
+  const {
+    imgProfil,
+    title,
+    paragraph,
+    facebook,
+    instagram,
+    linkedIn,
+    email,
+    twitter,
+    behance,
+  } = data.markdownRemark.frontmatter.aboutPage;
   console.log(data);
   return (
     <Layout current="about">
@@ -20,39 +30,33 @@ const about = ({ data }) => {
                 />
               </div>
               <div class="col-md-6">
-                <h1 class="h2">James Torres</h1>
-                <p>
-                  Mi eget mauris pharetra et ultrices neque ornare. Pellentesque
-                  elit ullamcorper dignissim cras tincidunt lobortis. Euismod in
-                  pellentesque massa placerat. Consectetur libero id faucibus
-                  nisl tincidunt eget. Pulvinar etiam non quam lacus
-                  suspendisse. Tincidunt nunc pulvinar sapien et ligula
-                  ullamcorper malesuada. Ante in nibh mauris cursus mattis
-                  molestie a iaculis. Gravida cum sociis natoque penatibus et
-                  magnis dis parturient montes. Ultrices gravida dictum fusce ut
-                  placerat orci.
-                </p>
+                <h1 class="h2">{title}</h1>
+                <p>{paragraph}</p>
 
                 <ul class="list-unstyled">
                   <li>
-                    <a
-                      href="mailto:myemail@myemail.com"
-                      title=""
-                      class="link-like-text"
-                    >
+                    <div
+                      className="fa fa-envelope "
+                      style={{ display: "block" }}
+                    ></div>
+                    <a href={`mailto:${email}`} title="" class="link-like-text">
                       email
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="https://www.linkedin.com/"
-                      title=""
-                      class="link-like-text"
-                    >
+                    <div
+                      className="fab fa-linkedin"
+                      style={{ display: "block" }}
+                    ></div>
+                    <a href={linkedIn} title="" class="link-like-text">
                       linkedin
                     </a>
                   </li>
                   <li>
+                    <div
+                      className="fab fa-facebook"
+                      style={{ display: "block" }}
+                    ></div>
                     <a
                       href="https://www.facebook.com/"
                       title=""
@@ -62,29 +66,29 @@ const about = ({ data }) => {
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="https://www.instagram.com/"
-                      title=""
-                      class="link-like-text"
-                    >
+                    <div
+                      className="fab fa-instagram"
+                      style={{ display: "block" }}
+                    ></div>
+                    <a href={instagram} title="" class="link-like-text">
                       instagram
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="https://twitter.com/"
-                      title=""
-                      class="link-like-text"
-                    >
+                    <div
+                      className="fab fa-twitter"
+                      style={{ display: "block" }}
+                    ></div>
+                    <a href={twitter} title="" class="link-like-text">
                       twitter
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="https://www.behance.net"
-                      title=""
-                      class="link-like-text"
-                    >
+                    <div
+                      className="fab fa-behance"
+                      style={{ display: "block" }}
+                    ></div>
+                    <a href={behance} title="" class="link-like-text">
                       behance
                     </a>
                   </li>
@@ -105,6 +109,8 @@ export const pageQuery = graphql`
     markdownRemark(id: { eq: $id }) {
       frontmatter {
         aboutPage {
+          title
+          paragraph
           imgProfil {
             childImageSharp {
               fluid(maxWidth: 10000, quality: 100) {
@@ -112,6 +118,12 @@ export const pageQuery = graphql`
               }
             }
           }
+          facebook
+          instagram
+          linkedIn
+          email
+          twitter
+          behance
         }
       }
     }

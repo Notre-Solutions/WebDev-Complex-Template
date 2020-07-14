@@ -14,10 +14,12 @@ const project = ({ data }) => {
     prevPage,
     nextPage,
     pageNumber,
+    desc,
   } = data.markdownRemark.frontmatter.projectPage;
   const nextPageNumber = pageNumber === 3 ? null : pageNumber + 1;
   const prevPageNumber = pageNumber === 1 ? null : pageNumber - 1;
-
+  const { date, crewList, other, paragraphTitle, paragraph, images } = desc;
+  console.log(images);
   return (
     <Layout>
       <div
@@ -51,46 +53,24 @@ const project = ({ data }) => {
                 <div class="col-md-4">
                   <div class="section-container-spacer">
                     <h3>Photographic Project</h3>
-                    <p>Menphis June, 2016</p>
+                    <p>{date}</p>
                   </div>
 
                   <h4>Credits & Crew</h4>
 
                   <ul class="list-unstyled">
-                    <li>Stanford</li>
-                    <li>Pablo Malice</li>
-                    <li>Patricia Stano</li>
+                    {crewList.map((crew) => {
+                      return <li>{crew.name}</li>;
+                    })}
                   </ul>
-
-                  <p>Cityzen circus Association</p>
-                  <p>Menphis City Hall</p>
+                  {other.map((item) => {
+                    return <p>{item.name}</p>;
+                  })}
                 </div>
                 <div class="col-md-8">
-                  <h3>How to exchange with the nocturnal light ?</h3>
-                  <p>
-                    Id eu nisl nunc mi ipsum faucibus vitae aliquet. Auctor urna
-                    nunc id cursus metus aliquam. A pellentesque sit amet
-                    porttitor eget dolor morbi. Interdum varius sit amet mattis.
-                    Tincidunt dui ut ornare lectus sit amet est placerat in.
-                    Diam volutpat commodo sed egestas. Praesent elementum
-                    facilisis leo vel fringilla est ullamcorper eget nulla. Non
-                    odio euismod lacinia at quis risus sed vulputate. Lacus sed
-                    turpis tincidunt id aliquet risus feugiat.
-                  </p>
-                  <p>
-                    {" "}
-                    Mieget mauris pharetra et ultrices neque ornare.
-                    Pellentesque elit ullamcorper dignissim cras tincidunt
-                    lobortis. Euismod in pellentesque massa placerat.
-                    Consectetur libero id faucibus nisl tincidunt eget. Pulvinar
-                    etiam non quam lacus suspendisse. Tincidunt nunc pulvinar
-                    sapien et ligula ullamcorper malesuada. Ante in nibh mauris
-                    cursus mattis molestie a iaculis. Gravida cum sociis natoque
-                    penatibus et magnis dis parturient montes. Ultrices gravida
-                    dictum fusce ut placerat orci. Id cursus metus aliquam
-                    eleifend mi in. Odio eu feugiat pretium nibh ipsum
-                    consequat.
-                  </p>
+                  <h3>{paragraphTitle}</h3>
+                  {/* TODO: Break up paragraph */}
+                  <p>{paragraph}</p>
                 </div>
               </div>
               <Img
@@ -98,14 +78,11 @@ const project = ({ data }) => {
                 alt=""
                 fluid={img03.childImageSharp.fluid}
               />
-              <p>Menphis city center</p>
+              <p>{images.img3}</p>
 
               <blockquote class="text-center large-spacing">
-                <p>
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer posuere erat a ante."
-                </p>
-                <small class="pull-right">Irina Martin</small>
+                <p>"{images.quote}"</p>
+                <small class="pull-right">{images.auther}</small>
               </blockquote>
 
               <div class="row">
@@ -115,7 +92,7 @@ const project = ({ data }) => {
                     alt=""
                     fluid={img02.childImageSharp.fluid}
                   />
-                  <p>Menphis skyline</p>
+                  <p>{images.img2}</p>
                 </div>
                 <div class="col-md-6">
                   <Img
@@ -123,7 +100,7 @@ const project = ({ data }) => {
                     alt=""
                     fluid={img01.childImageSharp.fluid}
                   />
-                  <p>Artefact Buildging</p>
+                  <p>{images.img1}</p>
                 </div>
               </div>
 
@@ -132,7 +109,7 @@ const project = ({ data }) => {
                 alt=""
                 fluid={img04.childImageSharp.fluid}
               />
-              <p>Menphis skyline</p>
+              <p>{images.img4}</p>
             </div>
           </div>
         </div>
@@ -228,6 +205,25 @@ export const pageQuery = graphql`
               fluid(maxWidth: 10000, quality: 100) {
                 ...GatsbyImageSharpFluid
               }
+            }
+          }
+          desc {
+            date
+            crewList {
+              name
+            }
+            other {
+              name
+            }
+            paragraphTitle
+            paragraph
+            images {
+              img1
+              quote
+              auther
+              img2
+              img3
+              img4
             }
           }
         }
